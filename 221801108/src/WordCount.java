@@ -18,7 +18,8 @@ public class WordCount {
 		Statistic tool = new Statistic();
 		content = readFile();
 		charNumber = tool.charNum(content);
-		writeFile(charNumber,content);
+		wordNumber = tool.wordNum(content);
+		writeFile(charNumber,wordNumber,content);
 	}
 	public static String readFile() {
 		BufferedReader bReader = null;
@@ -45,11 +46,11 @@ public class WordCount {
 		}
 		 return buffer.toString();
 	}
-	public static void writeFile(int charNum,String str) {
+	public static void writeFile(int charNum,int wordNum,String str) {
 		try {
 			FileWriter fout = new FileWriter("testt.txt");
 			fout.write(charNum+"\n");
-			
+			fout.write(wordNum+"\n");
 			fout.write(str);
 			fout.flush();
 			fout.close();
