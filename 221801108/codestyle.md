@@ -68,4 +68,4 @@ method(args1, args2, args3, ...
 ### 9、操作符前后空格
 操作符前后空1格。
 ### 10、其他规则
-[参照《码出高效_阿里巴巴Java开发手册》](https://github.com/chjw8016/alibaba-java-style-guide)
+参照[《码出高效_阿里巴巴Java开发手册》](https://github.com/chjw8016/alibaba-java-style-guide)
