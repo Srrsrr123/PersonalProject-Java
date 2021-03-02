@@ -1,29 +1,27 @@
 package wordcount;
 
-import java.io.InputStream;
+
 import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.LineNumberReader;
-import java.io.InputStreamReader;
 import java.io.File;
 
 public class WordCount {
 	public static void main(String[] args) {
-		String contend=null;//文件内容
-		int charNumber;//字符数
-		int wordNumber;//单词数
-		int lineNumber;//文件行数
+		String content = null;//文件内容
+		int charNumber = 0;//字符数
+		int wordNumber = 0;//单词数
+		int lineNumber = 0;//文件行数
 		String inputtext;
 		String outputtext;
-		contend=readFile();
-		writeFile(contend);
+		Statistic tool = new Statistic();
+		content = readFile();
+		charNumber = tool.charNum(content);
+		writeFile(charNumber,content);
 	}
 	public static String readFile() {
-		BufferedReader bReader =null;
+		BufferedReader bReader = null;
 		StringBuilder buffer = new StringBuilder();
 		try {
 			int b;
@@ -47,7 +45,18 @@ public class WordCount {
 		}
 		 return buffer.toString();
 	}
-	public static void writeFile(String temp) {
-		
+	public static void writeFile(int charNum,String str) {
+		try {
+			FileWriter fout = new FileWriter("testt.txt");
+			fout.write(charNum+"\n");
+			
+			fout.write(str);
+			fout.flush();
+			fout.close();
+		}
+		catch (IOException e) {
+            System.out.println("文件不存在");
+            e.printStackTrace();
+        }
 	}
 }
