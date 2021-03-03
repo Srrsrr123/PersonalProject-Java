@@ -28,7 +28,9 @@ public class Statistic {
     	String[] words = text.split("\\W+");
     	for (int i = 0; i <words.length; i++) {
     		String str = words[i].toLowerCase();
-    		if (str.matches("[a-zA-Z]{4}([a-zA-Z0-9])*")) {	
+    		Pattern r = Pattern.compile("[a-zA-Z]{4}([a-zA-Z0-9])*");
+    		Matcher m = r.matcher(str);  		
+    		if (m.find()) {	
     			 num++;
     			 if (!map.containsKey(str)) {
     				 map.put(str,1);
@@ -43,9 +45,11 @@ public class Statistic {
     //统计文件有效行数，任何包含非空白字符的行，都需要统计。
     public int lineNum(String text) {
     	int num = 0;
-    	String[] lines = text.split("\n");
+    	String[] lines = text.split("\\n");
     	for (int i=0; i<lines.length; i++) {
-    		if (lines[i].matches("\\S")) {
+    		Pattern r = Pattern.compile("\\S+");
+    		Matcher m = r.matcher(lines[i]);
+    		if (m.find()) {
     			num++;
     		}
     	}
