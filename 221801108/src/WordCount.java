@@ -19,7 +19,8 @@ public class WordCount {
 		content = readFile();
 		charNumber = tool.charNum(content);
 		wordNumber = tool.wordNum(content);
-		writeFile(charNumber,wordNumber,content);
+		lineNumber = tool.lineNum(content);
+		writeFile(charNumber,wordNumber,lineNumber,content);
 	}
 	//将文件内容读出到字符串
 	public static String readFile() {
@@ -48,11 +49,12 @@ public class WordCount {
 		 return buffer.toString();
 	}
 	//将统计结果输出到文件中
-	public static void writeFile(int charNum,int wordNum,String str) {
+	public static void writeFile(int charNum,int wordNum,int lineNum,String str) {
 		try {
 			FileWriter fout = new FileWriter("testt.txt");
-			fout.write(charNum+"\n");
-			fout.write(wordNum+"\n");
+			fout.write("characters: "+charNum+"\n");
+			fout.write("words: "+wordNum+"\n");
+			fout.write("lines: "+lineNum+"\n");
 			fout.write(str);
 			fout.flush();
 			fout.close();
