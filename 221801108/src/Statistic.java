@@ -62,7 +62,8 @@ public class Statistic {
     }
     //统计文件中各单词的出现次数（对应输出接下来10行），最终只输出频率最高的10个。
     public List<Map.Entry<String,Integer>> maxtenNum() {
-        List<Map.Entry<String,Integer>> list = new ArrayList<Map.Entry<String,Integer>>(map.entrySet());
+        List<Map.Entry<String,Integer>> list; 
+        list = new ArrayList<Map.Entry<String,Integer>>(map.entrySet());
         Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() {
             public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
             	if (o1.getValue().equals(o2.getValue())) {
