@@ -12,7 +12,7 @@ public class WordCount {
 		String content = null;//文件内容
 		int charNumber = 0;//字符数
 		int wordNumber = 0;//单词数
-		int lineNumber = 0;//文件行数
+		int lineNumber = 0;//文件有效行数
 		String inputtext;
 		String outputtext;
 		Statistic tool = new Statistic();
@@ -21,6 +21,7 @@ public class WordCount {
 		wordNumber = tool.wordNum(content);
 		writeFile(charNumber,wordNumber,content);
 	}
+	//将文件内容读出到字符串
 	public static String readFile() {
 		BufferedReader bReader = null;
 		StringBuilder buffer = new StringBuilder();
@@ -46,6 +47,7 @@ public class WordCount {
 		}
 		 return buffer.toString();
 	}
+	//将统计结果输出到文件中
 	public static void writeFile(int charNum,int wordNum,String str) {
 		try {
 			FileWriter fout = new FileWriter("testt.txt");
