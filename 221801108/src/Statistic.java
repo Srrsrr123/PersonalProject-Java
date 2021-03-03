@@ -1,5 +1,10 @@
 package wordcount;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
 import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -54,5 +59,14 @@ public class Statistic {
     		}
     	}
     	return num;
+    }
+    //统计文件中各单词的出现次数（对应输出接下来10行），最终只输出频率最高的10个。
+    public void maxtenNum() {
+        List<Map.Entry<String,Integer>> list = new ArrayList<Map.Entry<String,Integer>>(map.entrySet());
+        Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() {
+            public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
+                
+            }
+        });
     }
 }
