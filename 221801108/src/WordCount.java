@@ -2,12 +2,14 @@ package wordcount;
 
 
 import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.List;
 import java.util.Map;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 
 public class WordCount {
 	public static void main(String[] args) {
@@ -33,7 +35,7 @@ public class WordCount {
 		try {
 			int b;
 			File file = new File(input);
-	        FileReader reader = new FileReader(file);
+			InputStreamReader reader = new InputStreamReader(new FileInputStream(file),"UTF-8");
 	        bReader = new BufferedReader(reader);
 	        while((b = bReader.read()) != -1) {
                 buffer.append((char)b);
@@ -55,7 +57,7 @@ public class WordCount {
 	//将统计结果输出到文件中
 	public static void writeFile(int charNum,int wordNum,int lineNum,List<Map.Entry<String,Integer>> list,String output) {
 		try {
-			FileWriter fout = new FileWriter(output);
+			OutputStreamWriter fout = new OutputStreamWriter(new FileOutputStream(output),"UTF-8");
 			fout.write("characters: "+charNum+"\n");
 			fout.write("words: "+wordNum+"\n");
 			fout.write("lines: "+lineNum+"\n");
