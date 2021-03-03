@@ -51,7 +51,7 @@ public class Statistic {
     public int lineNum(String text) {
     	int num = 0;
     	String[] lines = text.split("\\n");
-    	for (int i=0; i<lines.length; i++) {
+    	for (int i = 0; i<lines.length; i++) {
     		Pattern r = Pattern.compile("\\S+");
     		Matcher m = r.matcher(lines[i]);
     		if (m.find()) {
@@ -61,12 +61,18 @@ public class Statistic {
     	return num;
     }
     //统计文件中各单词的出现次数（对应输出接下来10行），最终只输出频率最高的10个。
-    public void maxtenNum() {
+    public List<Map.Entry<String,Integer>> maxtenNum() {
         List<Map.Entry<String,Integer>> list = new ArrayList<Map.Entry<String,Integer>>(map.entrySet());
         Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() {
             public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
-                
+            	if (o1.getValue().equals(o2.getValue())) {
+                    return o1.getKey().compareTo(o2.getKey());
+                }
+                else {
+                	return o2.getValue().compareTo(o1.getValue());
+                }
             }
         });
+        return list;
     }
 }

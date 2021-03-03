@@ -5,6 +5,8 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 import java.io.File;
 
 public class WordCount {
@@ -13,6 +15,7 @@ public class WordCount {
 		int charNumber = 0;//字符数
 		int wordNumber = 0;//单词数
 		int lineNumber = 0;//文件有效行数
+		List<Map.Entry<String,Integer>> list ;
 		String inputtext;
 		String outputtext;
 		Statistic tool = new Statistic();
@@ -20,7 +23,8 @@ public class WordCount {
 		charNumber = tool.charNum(content);
 		wordNumber = tool.wordNum(content);
 		lineNumber = tool.lineNum(content);
-		writeFile(charNumber,wordNumber,lineNumber,content);
+		list = tool.maxtenNum();
+		writeFile(charNumber,wordNumber,lineNumber,list,content);
 	}
 	//将文件内容读出到字符串
 	public static String readFile() {
@@ -49,12 +53,19 @@ public class WordCount {
 		 return buffer.toString();
 	}
 	//将统计结果输出到文件中
-	public static void writeFile(int charNum,int wordNum,int lineNum,String str) {
+	public static void writeFile(int charNum,int wordNum,int lineNum,List<Map.Entry<String,Integer>> list,String str) {
 		try {
 			FileWriter fout = new FileWriter("testt.txt");
 			fout.write("characters: "+charNum+"\n");
 			fout.write("words: "+wordNum+"\n");
 			fout.write("lines: "+lineNum+"\n");
+			for (int i = 0; i < 10; i++) {
+				Map.Entry<String,Integer> entry = list.get(i);
+	            if (entry == null) {
+	                return;
+	            }
+	            fout.write(entry.getKey() + "：" + entry.getValue()+"\n");
+			}
 			fout.write(str);
 			fout.flush();
 			fout.close();
