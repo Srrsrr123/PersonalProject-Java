@@ -61,7 +61,7 @@ public class WordCount {
             for (int i = 0; i < list.size(); i++) {
                 if (i >= 10) break;
                 Map.Entry<String,Integer> entry = list.get(i);
-                bWriter.write(entry.getKey() + "：" + entry.getValue()+"\n");
+                bWriter.write(entry.getKey() + ": " + entry.getValue()+"\n");
             }
             fout.flush();
             fout.close();
