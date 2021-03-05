@@ -1,16 +1,14 @@
-
-
 import java.io.*;
 import java.util.List;
 import java.util.Map;
 
 public class WordCount {
     public static void main(String[] args) {
-        String content = null;//存放文件内容
-        int charNumber = 0;//字符数
-        int wordNumber = 0;//单词数
-        int lineNumber = 0;//文件有效行数
-        List<Map.Entry<String,Integer>> list ;//存放输出频率最高的10个的单词
+        String content = null;/*存放文件内容*/
+        int charNumber = 0;/*字符数*/
+        int wordNumber = 0;/*单词数*/
+        int lineNumber = 0;/*文件有效行数*/
+        List<Map.Entry<String,Integer>> list ;/*存放输出频率最高的10个的单词*/
         if(args.length != 2) {
             System.out.print("参数个数有误");
             return;
