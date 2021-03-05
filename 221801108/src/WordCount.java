@@ -1,77 +1,76 @@
-package wordcount;
 
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
+import java.io.*;
 import java.util.List;
 import java.util.Map;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 
 public class WordCount {
-	public static void main(String[] args) {
-		String content = null;//´æ·ÅÎÄ¼şÄÚÈİ
-		int charNumber = 0;//×Ö·ûÊı
-		int wordNumber = 0;//µ¥´ÊÊı
-		int lineNumber = 0;//ÎÄ¼şÓĞĞ§ĞĞÊı
-		List<Map.Entry<String,Integer>> list ;//´æ·ÅÊä³öÆµÂÊ×î¸ßµÄ10¸öµÄµ¥´Ê
-		String inputtext = "test.txt";
-		String outputtext = "testt.txt";
-		Statistic tool = new Statistic();
-		content = readFile(inputtext);
-		charNumber = tool.charNum(content);
-		wordNumber = tool.wordNum(content);
-		lineNumber = tool.lineNum(content);
-		list = tool.maxtenNum();
-		writeFile(charNumber,wordNumber,lineNumber,list,outputtext);
-	}
-	//½«ÎÄ¼şÄÚÈİ¶Á³öµ½×Ö·û´®
-	public static String readFile(String input) {
-		BufferedReader bReader = null;
-		StringBuilder buffer = new StringBuilder();
-		try {
-			int b;
-			File file = new File(input);
-			InputStreamReader reader = new InputStreamReader(new FileInputStream(file),"UTF-8");
-	        bReader = new BufferedReader(reader);
-	        while((b = bReader.read()) != -1) {
+    public static void main(String[] args) {
+        String content = null;//å­˜æ”¾æ–‡ä»¶å†…å®¹
+        int charNumber = 0;//å­—ç¬¦æ•°
+        int wordNumber = 0;//å•è¯æ•°
+        int lineNumber = 0;//æ–‡ä»¶æœ‰æ•ˆè¡Œæ•°
+        List<Map.Entry<String,Integer>> list ;//å­˜æ”¾è¾“å‡ºé¢‘ç‡æœ€é«˜çš„10ä¸ªçš„å•è¯
+        if(args.length != 2) {
+            System.out.print("å‚æ•°ä¸ªæ•°æœ‰è¯¯");
+            return;
+        }
+        String inputText = args[0];
+        String outputText = args[1];
+        Statistic tool = new Statistic();
+        content = readFile(inputText);
+        charNumber = tool.charNum(content);
+        wordNumber = tool.wordNum(content);
+        lineNumber = tool.lineNum(content);
+        list = tool.maxNum();
+        writeFile(charNumber,wordNumber,lineNumber,list,outputText);
+    }
+    //å°†æ–‡ä»¶å†…å®¹è¯»å‡ºåˆ°å­—ç¬¦ä¸²
+    public static String readFile(String input) {
+        BufferedReader bReader = null;
+        StringBuilder buffer = new StringBuilder();
+        try {
+            int b;
+            File file = new File(input);
+            InputStreamReader reader = new InputStreamReader(new FileInputStream(file),"UTF-8");
+            bReader = new BufferedReader(reader);
+            while((b = bReader.read()) != -1) {
                 buffer.append((char)b);
             }
-		}
-		catch (IOException e) {
-            System.out.println("ÎÄ¼ş²»´æÔÚ");
+        }
+        catch (IOException e) {
+            System.out.println("æ‰“å¼€æ–‡ä»¶å¤±è´¥");
             e.printStackTrace();
         }
-		finally {
-			try {
+        finally {
+            try {
                 bReader.close();
             }catch(IOException e) {
                 e.printStackTrace();
             }
-		}
-		 return buffer.toString();
-	}
-	//½«Í³¼Æ½á¹ûÊä³öµ½ÎÄ¼şÖĞ
-	public static void writeFile(int charNum,int wordNum,int lineNum,List<Map.Entry<String,Integer>> list,String output) {
-		try {
-			OutputStreamWriter fout = new OutputStreamWriter(new FileOutputStream(output),"UTF-8");
-			fout.write("characters: "+charNum+"\n");
-			fout.write("words: "+wordNum+"\n");
-			fout.write("lines: "+lineNum+"\n");
-			for (int i = 0; i < list.size(); i++) {
-				if (i >= 10) break;
-				Map.Entry<String,Integer> entry = list.get(i);
-	            fout.write(entry.getKey() + "£º" + entry.getValue()+"\n"); 
-			}
-			fout.flush();
-			fout.close();
-		}
-		catch (IOException e) {
-            System.out.println("ÎÄ¼ş²»´æÔÚ");
+        }
+        return buffer.toString();
+    }
+    //å°†ç»Ÿè®¡ç»“æœè¾“å‡ºåˆ°æ–‡ä»¶ä¸­
+    public static void writeFile(int charNum,int wordNum,int lineNum,List<Map.Entry<String,Integer>> list,String output) {
+        BufferedWriter bWriter = null;
+        try {
+            OutputStreamWriter fout = new OutputStreamWriter(new FileOutputStream(output),"UTF-8");
+            bWriter = new BufferedWriter(fout);
+            bWriter.write("characters: "+charNum+"\n");
+            bWriter.write("words: "+wordNum+"\n");
+            bWriter.write("lines: "+lineNum+"\n");
+            for (int i = 0; i < list.size(); i++) {
+                if (i >= 10) break;
+                Map.Entry<String,Integer> entry = list.get(i);
+                bWriter.write(entry.getKey() + "ï¼š" + entry.getValue()+"\n");
+            }
+            fout.flush();
+            fout.close();
+        }
+        catch (IOException e) {
+            System.out.println("æ‰“å¼€æ–‡ä»¶å¤±è´¥");
             e.printStackTrace();
         }
-	}
+    }
 }

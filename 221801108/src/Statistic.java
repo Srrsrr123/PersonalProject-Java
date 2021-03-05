@@ -1,4 +1,3 @@
-package wordcount;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -10,67 +9,67 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Statistic {
-	//¶¨ÒåÒ»¸ömap¼¯ºÏ±£´æµ¥´ÊºÍµ¥´Ê³öÏÖµÄ¸öÊı
+    //å®šä¹‰ä¸€ä¸ªmapé›†åˆä¿å­˜å•è¯å’Œå•è¯å‡ºç°çš„ä¸ªæ•°
     TreeMap<String,Integer> map = new TreeMap<String,Integer>();
-    
-	Statistic(){
-		
-	}
-	//Í³¼Æ×Ö·û´®£¬Ö»ĞèÒªÍ³¼ÆAsciiÂë£¬ºº×Ö²»Ğè¿¼ÂÇ¿Õ¸ñ£¬Ë®Æ½ÖÆ±í·û£¬»»ĞĞ·û£¬¾ùËã×Ö·û
+
+    Statistic(){
+
+    }
+    //ç»Ÿè®¡å­—ç¬¦ä¸²ï¼Œåªéœ€è¦ç»Ÿè®¡Asciiç ï¼Œæ±‰å­—ï¼Œä¸éœ€è€ƒè™‘ç©ºæ ¼ï¼Œæ°´å¹³åˆ¶è¡¨ç¬¦ï¼Œæ¢è¡Œç¬¦ï¼Œå‡ç®—å­—ç¬¦
     public int charNum(String text) {
-    	int num = 0;
-    	char [] list = text.toCharArray();
-    	for (int i = 0; i < list.length; i++) {
+        int num = 0;
+        char [] list = text.toCharArray();
+        for (int i = 0; i < list.length; i++) {
             if (list[i] >= 0 && list[i] <= 127) {
                 num++;
             }
         }
-    	return num;
+        return num;
     }
-    //Í³¼Æµ¥´ÊÊı£¬µ¥´Ê£ºÖÁÉÙÒÔ4¸öÓ¢ÎÄ×ÖÄ¸¿ªÍ·£¬¸úÉÏ×ÖÄ¸Êı×Ö·ûºÅ£¬µ¥´ÊÒÔ·Ö¸ô·û·Ö¸î£¬²»Çø·Ö´óĞ¡Ğ´¡£
+    //ç»Ÿè®¡å•è¯æ•°ï¼Œå•è¯ï¼šè‡³å°‘ä»¥4ä¸ªè‹±æ–‡å­—æ¯å¼€å¤´ï¼Œè·Ÿä¸Šå­—æ¯æ•°å­—ç¬¦å·ï¼Œå•è¯ä»¥åˆ†éš”ç¬¦åˆ†å‰²ï¼Œä¸åŒºåˆ†å¤§å°å†™ã€‚
     public int wordNum(String text) {
-    	int num = 0;
-    	String[] words = text.split("\\W+");
-    	for (int i = 0; i <words.length; i++) {
-    		String str = words[i].toLowerCase();
-    		Pattern r = Pattern.compile("[a-zA-Z]{4}([a-zA-Z0-9])*");
-    		Matcher m = r.matcher(str);  		
-    		if (m.find()) {	
-    			 num++;
-    			 if (!map.containsKey(str)) {
-    				 map.put(str,1);
-    			 }
-    			 else {
-    				 map.put(str,map.get(str)+1);
-    			 }
-    		}
-    	}
-    	return num;
-    }
-    //Í³¼ÆÎÄ¼şÓĞĞ§ĞĞÊı£¬ÈÎºÎ°üº¬·Ç¿Õ°××Ö·ûµÄĞĞ£¬¶¼ĞèÒªÍ³¼Æ¡£
-    public int lineNum(String text) {
-    	int num = 0;
-    	String[] lines = text.split("\\n");
-    	for (int i = 0; i<lines.length; i++) {
-    		Pattern r = Pattern.compile("\\S+");
-    		Matcher m = r.matcher(lines[i]);
-    		if (m.find()) {
-    			num++;
-    		}
-    	}
-    	return num;
-    }
-    //Í³¼ÆÎÄ¼şÖĞ¸÷µ¥´ÊµÄ³öÏÖ´ÎÊı£¨¶ÔÓ¦Êä³ö½ÓÏÂÀ´10ĞĞ£©£¬×îÖÕÖ»Êä³öÆµÂÊ×î¸ßµÄ10¸ö¡£
-    public List<Map.Entry<String,Integer>> maxtenNum() {
-        List<Map.Entry<String,Integer>> list; 
-        list = new ArrayList<Map.Entry<String,Integer>>(map.entrySet());
-        Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() {
-            public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
-            	if (o1.getValue().equals(o2.getValue())) {
-                    return o1.getKey().compareTo(o2.getKey());
+        int num = 0;
+        String[] words = text.split("\\W+");
+        for (int i = 0; i <words.length; i++) {
+            String str = words[i].toLowerCase();
+            Pattern r = Pattern.compile("^[a-zA-Z]{4}([a-zA-Z0-9])*");
+            Matcher m = r.matcher(str);
+            if (m.find()) {
+                num++;
+                if (!map.containsKey(str)) {
+                    map.put(str,1);
                 }
                 else {
-                	return o2.getValue().compareTo(o1.getValue());
+                    map.put(str,map.get(str)+1);
+                }
+            }
+        }
+        return num;
+    }
+    //ç»Ÿè®¡æ–‡ä»¶æœ‰æ•ˆè¡Œæ•°ï¼Œä»»ä½•åŒ…å«éç©ºç™½å­—ç¬¦çš„è¡Œï¼Œéƒ½éœ€è¦ç»Ÿè®¡ã€‚
+    public int lineNum(String text) {
+        int num = 0;
+        String[] lines = text.split("\\n");
+        for (int i = 0; i<lines.length; i++) {
+            Pattern r = Pattern.compile("\\S+");
+            Matcher m = r.matcher(lines[i]);
+            if (m.find()) {
+                num++;
+            }
+        }
+        return num;
+    }
+    //ç»Ÿè®¡æ–‡ä»¶ä¸­å„å•è¯çš„å‡ºç°æ¬¡æ•°ï¼ˆå¯¹åº”è¾“å‡ºæ¥ä¸‹æ¥10è¡Œï¼‰ï¼Œæœ€ç»ˆåªè¾“å‡ºé¢‘ç‡æœ€é«˜çš„10ä¸ªã€‚
+    public List<Map.Entry<String,Integer>> maxNum() {
+        List<Map.Entry<String,Integer>> list;
+        list = new ArrayList<Map.Entry<String,Integer>>(map.entrySet());
+        Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() {
+            public int compare(Map.Entry<String, Integer> pre, Map.Entry<String, Integer> last) {
+                if (pre.getValue().equals(last.getValue())) {
+                    return pre.getKey().compareTo(last.getKey());
+                }
+                else {
+                    return last.getValue().compareTo(pre.getValue());
                 }
             }
         });
